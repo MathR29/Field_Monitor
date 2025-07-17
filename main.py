@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 
 print("Field Monitor")
 
@@ -9,11 +10,24 @@ class Field:
         self.area = area
         self.current_crop = current_crop
         self.planting_date = planting_date
+        self.path = f"Farms/{self.farm.replace(' ','_')}/{self.field_name.replace(' ','_')}"
         try:
-            os.makedirs(f"Farms/{self.farm.replace(' ','_')}/{self.field_name.replace(' ','_')}")
+            os.makedirs(self.path)
         except:
             pass
+    
+    
+    def create_speadsheet(self): 
+        data = {"Farm": [self.farm],
+                "Field": [self.field_name],
+                "Area": [self.area],
+                "Crop": [self.current_crop],
+                "Planting Date": [self.planting_date]
+                }
+        data = pd.DataFrame(data)
+        data.to_csv((self.path+ f"/{self.field_name}.csv"),
+                    index = False)
 
 
-Talhao_1 = Field("Fazenda Ouro Verde","Talhao 1",25,"Milho","2023-25-01")
-Talhao_2 = Field("Fazenda Ouro Verde","Talhao 2",30,"Soja","2023-23-01")
+Talhao_1 = Field("Ouro Verde","Pastagem_1",124,"Marandu","2023-05-14")
+Talhao_1.create_speadsheet()
