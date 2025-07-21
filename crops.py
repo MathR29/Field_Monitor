@@ -5,11 +5,19 @@ class Crop:
         self.n_upk = n_upk
         self.p_upk = p_upk
         self.k_upk = k_upk
-        
-    def nutrients_needed(self):
         self.n_req = self.n_upk * self.yld
         self.p_req = self.p_upk * self.yld
         self.k_req = self.k_upk * self.yld
+
+    def output(self):
+        output_data = {
+            "Cultura": [self.name],
+            "Produtividade": [self.yld],
+            "N_requerido": [self.n_req],
+            "P_requerido": [self.p_req],
+            "K_requerido":[self.k_req]
+        }
+        return output_data
 
 
 class Corn(Crop):
